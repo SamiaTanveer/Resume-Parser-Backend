@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: skillmatch-tech/ollama
+  IMAGE_NAME: ollama
 
 jobs:
   build-and-push-image:
