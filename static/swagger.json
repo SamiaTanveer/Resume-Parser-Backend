@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ollama",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Returns message showing app is up",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/parse-resume": {
+      "post": {
+        "description": "Parse the relevant information from a resume in a specific JSON format",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Text data of a resume",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/parse_resume"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resume parsed successfully"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/parse-pdf": {
+      "post": {
+        "description": "Parse text content from an uploaded PDF file",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "PDF file to be parsed",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PDF parsed successfully"
+          },
+          "400": {
+            "description": "Invalid request or file format"
+          },
+          "500": {
+            "description": "Internal server error while processing PDF"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "parse_resume": {
+      "type": "object",
+      "properties": {
+        "resume": {
+          "type": "string"
+        }
+      },
+      "required": ["resume"]
+    }
+  }
+}
